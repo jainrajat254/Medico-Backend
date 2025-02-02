@@ -1,10 +1,9 @@
 package com.example.Medico.service;
 
 import com.example.Medico.jwt.JWTService;
-import com.example.Medico.model.LoginCredentials;
-import com.example.Medico.model.LoginResponse;
-import com.example.Medico.model.Users;
+import com.example.Medico.model.*;
 import com.example.Medico.repository.UserRepository;
+import com.example.Medico.responses.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -39,6 +38,7 @@ public class UserService {
                 Users userEntity = user.get();
                 String token = jwtService.generateToken(credentials.getEmail());
                 return new LoginResponse(token,
+                        userEntity.getId(),
                         userEntity.getFirstName(),
                         userEntity.getLastName(),
                         userEntity.getAge(),

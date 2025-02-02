@@ -1,7 +1,10 @@
-package com.example.Medico.model;
+package com.example.Medico.responses;
+
+import java.util.UUID;
 
 public class LoginResponse {
     private String token;
+    private UUID id;
     private String firstName;
     private String lastName;
     private String age;
@@ -10,24 +13,20 @@ public class LoginResponse {
     private String phone;
     private String email;
 
-    public LoginResponse(String token, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email) {
-
-        this.token = token;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.gender = gender;
-        this.bloodGroup = bloodGroup;
-        this.phone = phone;
-        this.email = email;
-    }
-
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -83,6 +82,18 @@ public class LoginResponse {
     }
 
     public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LoginResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email) {
+        this.token = token;
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.bloodGroup = bloodGroup;
+        this.phone = phone;
         this.email = email;
     }
 }

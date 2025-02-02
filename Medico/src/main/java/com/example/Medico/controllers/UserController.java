@@ -1,17 +1,15 @@
 package com.example.Medico.controllers;
 
-import com.example.Medico.model.LoginCredentials;
-import com.example.Medico.model.LoginResponse;
-import com.example.Medico.model.Users;
+import com.example.Medico.model.*;
+import com.example.Medico.responses.LoginResponse;
 import com.example.Medico.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/u")
 public class UserController {
 
     @Autowired
