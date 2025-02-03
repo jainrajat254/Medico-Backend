@@ -29,7 +29,7 @@ public class PersonalInfoController {
         return personalInfoService.getPersonalInfo(id);
     }
 
-    @PostMapping("/uploadPhoto/{id}")
+    @PutMapping("/uploadPhoto/{id}")
     public PersonalInfo uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable UUID id) throws IOException {
         return personalInfoService.addPhoto(file, id);
     }

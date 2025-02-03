@@ -38,6 +38,15 @@ public class PersonalInfo {
     @Column(name = "emergency_contact_phone")
     private String emergencyContactPhone;
 
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "district")
+    private String district;
+
+    @Column(name = "city")
+    private String city;
+
     @Column(name = "current_address")
     private String currentAddress;
 
@@ -68,7 +77,7 @@ public class PersonalInfo {
     public PersonalInfo() {
     }
 
-    public PersonalInfo(Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails) {
+    public PersonalInfo(Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String state, String district, String city, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails) {
         this.users = users;
         this.height = height;
         this.weight = weight;
@@ -76,6 +85,9 @@ public class PersonalInfo {
         this.emergencyContactName = emergencyContactName;
         this.emergencyContactRelation = emergencyContactRelation;
         this.emergencyContactPhone = emergencyContactPhone;
+        this.state = state;
+        this.district = district;
+        this.city = city;
         this.currentAddress = currentAddress;
         this.permanentAddress = permanentAddress;
         this.knownHealthConditions = knownHealthConditions;
@@ -86,7 +98,7 @@ public class PersonalInfo {
         this.coverageDetails = coverageDetails;
     }
 
-    public PersonalInfo(UUID id, Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails) {
+    public PersonalInfo(UUID id, Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String state, String district, String city, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails, byte[] photo) {
         this.id = id;
         this.users = users;
         this.height = height;
@@ -95,6 +107,9 @@ public class PersonalInfo {
         this.emergencyContactName = emergencyContactName;
         this.emergencyContactRelation = emergencyContactRelation;
         this.emergencyContactPhone = emergencyContactPhone;
+        this.state = state;
+        this.district = district;
+        this.city = city;
         this.currentAddress = currentAddress;
         this.permanentAddress = permanentAddress;
         this.knownHealthConditions = knownHealthConditions;
@@ -103,6 +118,7 @@ public class PersonalInfo {
         this.policyNumber = policyNumber;
         this.groupNumber = groupNumber;
         this.coverageDetails = coverageDetails;
+        this.photo = photo;
     }
 
     public UUID getId() {
@@ -167,6 +183,30 @@ public class PersonalInfo {
 
     public void setEmergencyContactPhone(String emergencyContactPhone) {
         this.emergencyContactPhone = emergencyContactPhone;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getCurrentAddress() {
