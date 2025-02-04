@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "doctor", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "uid"),
         @UniqueConstraint(columnNames = "phone"),
         @UniqueConstraint(columnNames = "email")})
 public class Doctor {
@@ -53,7 +54,7 @@ public class Doctor {
 
     @Column(name = "fee", nullable = false)
     @Min(value = 0, message = "Fee must be a positive number")
-    private double fee;
+    private int fee;
 
     @ElementCollection
     @Column(name = "working_time", nullable = false, length = 100)
@@ -94,7 +95,7 @@ public class Doctor {
 
     }
 
-    public Doctor(UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, double fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, String password, boolean availableForOnlineConsultation) {
+    public Doctor(UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, int fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, String password, boolean availableForOnlineConsultation) {
         this.id = id;
         this.uid = uid;
         this.firstName = firstName;
@@ -210,7 +211,7 @@ public class Doctor {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(int fee) {
         this.fee = fee;
     }
 

@@ -3,8 +3,6 @@ package com.example.Medico.service;
 import com.example.Medico.jwt.JWTService;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
-import com.example.Medico.model.PersonalInfo;
-import com.example.Medico.model.Users;
 import com.example.Medico.repository.DoctorRepository;
 import com.example.Medico.responses.DoctorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -62,17 +61,17 @@ public class DoctorService {
         }
     }
 
-    public void addPhoto(MultipartFile file, String uid) throws IOException {
-        Doctor doctor = doctorRepository.findByUid(uid)
-                .orElseThrow(() -> new RuntimeException("Doctor not found with UID: " + uid));
+    public void addPhoto(MultipartFile file, UUID id) throws IOException {
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found with UID: " + id));
 
         doctor.setProfilePicture(file.getBytes()); // Save the photo as a byte array
         doctorRepository.save(doctor); // Save the doctor with the new photo
     }
 
-    // Method to get doctor details
-    public Doctor getPersonalInfo(String uid) {
-        return doctorRepository.findByUid(uid)
-                .orElseThrow(() -> new RuntimeException("Doctor not found with UID: " + uid));
+    @Transactional(readOnly = true)
+    public Doctor getPersonalInfo(UUID id) {
+        return doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found with UID: " + id));
     }
 }

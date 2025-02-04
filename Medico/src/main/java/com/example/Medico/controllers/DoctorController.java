@@ -2,7 +2,6 @@ package com.example.Medico.controllers;
 
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
-import com.example.Medico.model.PersonalInfo;
 import com.example.Medico.responses.DoctorResponse;
 import com.example.Medico.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +33,18 @@ public class DoctorController {
         return doctorService.register(doctor);
     }
 
-    @PutMapping("/uploadPhoto/{uid}")
-    public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable String uid) throws IOException {
+    @PutMapping("/uploadPhoto/{id}")
+    public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable UUID id) throws IOException {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("File is empty. Please upload a valid image.");
         }
-        doctorService.addPhoto(file, uid);
+        doctorService.addPhoto(file, id);
         return ResponseEntity.ok("Photo uploaded successfully");
     }
 
-    @GetMapping("/getPhoto/{uid}")
-    public ResponseEntity<byte[]> getPhoto(@PathVariable String uid) {
-        Doctor doctor = doctorService.getPersonalInfo(uid); // Use UID to fetch doctor
+    @GetMapping("/getPhoto/{id}")
+    public ResponseEntity<byte[]> getPhoto(@PathVariable UUID id) {
+        Doctor doctor = doctorService.getPersonalInfo(id); // Use UID to fetch doctor
 
         if (doctor == null || doctor.getProfilePicture() == null) {
             return ResponseEntity.notFound().build();
