@@ -1,7 +1,7 @@
 package com.example.Medico.controllers;
 
 import com.example.Medico.model.*;
-import com.example.Medico.responses.LoginResponse;
+import com.example.Medico.responses.UserResponse;
 import com.example.Medico.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +15,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginCredentials credentials) {
-        LoginResponse loginResponse = userService.login(credentials);
-        return loginResponse != null ? ResponseEntity.ok(loginResponse)
-                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<UserResponse> login(@RequestBody LoginCredentials credentials) {
+//        UserResponse userResponse = userService.login(credentials);
+//        return userResponse != null ? ResponseEntity.ok(userResponse)
+//                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+//    }
 
     @PostMapping("/register")
     public Users register(@RequestBody Users user) {

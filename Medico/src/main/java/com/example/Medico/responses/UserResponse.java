@@ -2,7 +2,7 @@ package com.example.Medico.responses;
 
 import java.util.UUID;
 
-public class LoginResponse {
+public class UserResponse {
     private String token;
     private UUID id;
     private String firstName;
@@ -85,7 +85,7 @@ public class LoginResponse {
         this.email = email;
     }
 
-    public LoginResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email) {
+    public UserResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email) {
         this.token = token;
         this.id = id;
         this.firstName = firstName;

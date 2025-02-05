@@ -42,7 +42,8 @@ public class DoctorResponse {
     }
 
 
-    public DoctorResponse(UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, int fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, String password, boolean availableForOnlineConsultation) {
+    public DoctorResponse(String token, UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, int fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, boolean availableForOnlineConsultation) {
+        this.token = token;
         this.id = id;
         this.uid = uid;
         this.firstName = firstName;
@@ -62,7 +63,6 @@ public class DoctorResponse {
         this.experience = experience;
         this.phone = phone;
         this.email = email;
-        this.password = password;
         this.availableForOnlineConsultation = availableForOnlineConsultation;
     }
 

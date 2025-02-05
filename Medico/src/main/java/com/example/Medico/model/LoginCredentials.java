@@ -3,11 +3,7 @@ package com.example.Medico.model;
 public class LoginCredentials {
     private String email;
     private String password;
-
-    public LoginCredentials(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    private String role;
 
     public String getEmail() {
         return email;
@@ -23,5 +19,13 @@ public class LoginCredentials {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor, String> {
+public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
 
     Doctor findByEmail(String email);
 

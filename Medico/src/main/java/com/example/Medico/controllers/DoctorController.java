@@ -3,6 +3,7 @@ package com.example.Medico.controllers;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
 import com.example.Medico.responses.DoctorResponse;
+import com.example.Medico.responses.UserResponse;
 import com.example.Medico.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +23,14 @@ public class DoctorController {
     DoctorService doctorService;
 
     @PostMapping("/login")
-    public ResponseEntity<DoctorResponse> login(@RequestBody LoginCredentials credentials) {
-        DoctorResponse doctorResponse = doctorService.login(credentials);
-        return doctorResponse != null ? ResponseEntity.ok(doctorResponse)
-                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    public ResponseEntity<?> login(@RequestBody LoginCredentials credentials) {
+        Object response = doctorService.login(credentials);
+
+        if (response instanceof DoctorResponse || response instanceof UserResponse) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
+        }
     }
 
     @PostMapping("/register")

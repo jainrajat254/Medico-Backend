@@ -3,8 +3,11 @@ package com.example.Medico.service;
 import com.example.Medico.jwt.JWTService;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
+import com.example.Medico.model.Users;
 import com.example.Medico.repository.DoctorRepository;
+import com.example.Medico.repository.UserRepository;
 import com.example.Medico.responses.DoctorResponse;
+import com.example.Medico.responses.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,42 +26,73 @@ import java.util.UUID;
 public class DoctorService {
 
     @Autowired
-    DoctorRepository doctorRepository;
+    private DoctorRepository doctorRepository;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private UserRepository userRepository;
 
     @Autowired
-    JWTService jwtService;
+    private JWTService jwtService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+
+    public Object login(LoginCredentials credentials) {
+        String email = credentials.getEmail();
+        String password = credentials.getPassword();
+        String role = credentials.getRole();
+
+        // Authenticate user first
+        Users user = userRepository.findByEmail(email);
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword()) && "USER".equalsIgnoreCase(role)) {
+            String token = jwtService.generateToken(email);
+            return new UserResponse(token,
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getAge(),
+                    user.getGender(),
+                    user.getBloodGroup(),
+                    user.getPhone(),
+                    user.getEmail());
+        }
+
+        // Authenticate doctor
+        Doctor doctor = doctorRepository.findByEmail(email);
+        if (doctor != null && bCryptPasswordEncoder.matches(password, doctor.getPassword()) && "DOCTOR".equalsIgnoreCase(role)) {
+            String token = jwtService.generateToken(email);
+            return new DoctorResponse(
+                    token,
+                    doctor.getId(),
+                    doctor.getUid(),
+                    doctor.getFirstName(),
+                    doctor.getLastName(),
+                    doctor.getDob(),
+                    doctor.getGender(),
+                    doctor.getState(),
+                    doctor.getDistrict(),
+                    doctor.getZipCode(),
+                    doctor.getAddress(),
+                    doctor.getWorkspaceName(),
+                    (int) doctor.getFee(),
+                    doctor.getWorkingTime(),
+                    doctor.getMedicalRegNo(),
+                    doctor.getSpecialization(),
+                    doctor.getQualification(),
+                    doctor.getExperience(),
+                    doctor.getPhone(),
+                    doctor.getEmail(),
+                    doctor.isAvailableForOnlineConsultation()
+            );
+
+        }
+
+        throw new BadCredentialsException("Invalid Username or Password");
+    }
+
 
     public Doctor register(Doctor doctor) {
         doctor.setPassword(bCryptPasswordEncoder.encode(doctor.getPassword()));
         return doctorRepository.save(doctor);
-    }
-
-    public DoctorResponse login(LoginCredentials credentials) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
-        if (authentication.isAuthenticated()) {
-            Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByEmail(credentials.getEmail()));
-
-            if ((doctor.isPresent())) {
-                Doctor doctorEntity = doctor.get();
-                String token = jwtService.generateToken(credentials.getEmail());
-                return new DoctorResponse(token,
-                        doctorEntity.getId(),
-                        doctorEntity.getFirstName(),
-                        doctorEntity.getLastName(),
-                        doctorEntity.getEmail()
-                );
-            } else {
-                throw new BadCredentialsException("Invalid Username or Password");
-            }
-        } else {
-            throw new BadCredentialsException("Invalid Username or Password");
-        }
     }
 
     public void addPhoto(MultipartFile file, UUID id) throws IOException {

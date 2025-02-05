@@ -87,6 +87,9 @@ public class Doctor {
     @Column(name = "available_for_online_consultation", nullable = false)
     private boolean availableForOnlineConsultation;
 
+    @Column(name = "role", nullable = false, updatable = false, insertable = false)
+    private final String role = "DOCTOR";
+
     @Lob
     @Column(name = "profile_picture")
     private byte[] profilePicture;

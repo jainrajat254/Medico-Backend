@@ -46,6 +46,9 @@ public class Users {
     @Size(max = 15, message = "Phone number cannot exceed 15 characters")
     private String phone;
 
+    @Column(name = "role", nullable = false, updatable = false, insertable = false)
+    private final String role = "USER";
+
     @Column(name = "email", nullable = false, length = 200)
     @NotNull(message = "Email cannot be null")
     @Email(message = "Email should be valid")
