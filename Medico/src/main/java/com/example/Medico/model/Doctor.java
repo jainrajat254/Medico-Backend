@@ -210,7 +210,7 @@ public class Doctor {
         this.workspaceName = workspaceName;
     }
 
-    public double getFee() {
+    public int getFee() {
         return fee;
     }
 

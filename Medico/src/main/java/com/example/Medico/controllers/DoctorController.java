@@ -1,5 +1,6 @@
 package com.example.Medico.controllers;
 
+import com.example.Medico.DTO.EditDocDTO;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
 import com.example.Medico.responses.DoctorResponse;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -36,6 +38,11 @@ public class DoctorController {
     @PostMapping("/register")
     public Doctor register(@RequestBody Doctor doctor) {
         return doctorService.register(doctor);
+    }
+
+    @PutMapping("editDocPersonalDetails/{id}")
+    public Doctor editDocPersonalDetails(@RequestBody @Valid EditDocDTO userDTO, @PathVariable UUID id) {
+        return doctorService.editDocPersonalDetails(userDTO, id);
     }
 
     @PutMapping("/uploadPhoto/{id}")

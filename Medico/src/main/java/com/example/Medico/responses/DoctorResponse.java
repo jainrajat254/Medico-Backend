@@ -25,9 +25,7 @@ public class DoctorResponse {
     private int experience;
     private String phone;
     private String email;
-    private String password;
     private boolean availableForOnlineConsultation;
-    private byte[] profilePicture;
 
     public DoctorResponse() {
 
@@ -154,7 +152,7 @@ public class DoctorResponse {
         this.workspaceName = workspaceName;
     }
 
-    public double getFee() {
+    public int getFee() {
         return fee;
     }
 
@@ -218,28 +216,12 @@ public class DoctorResponse {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public boolean isAvailableForOnlineConsultation() {
         return availableForOnlineConsultation;
     }
 
     public void setAvailableForOnlineConsultation(boolean availableForOnlineConsultation) {
         this.availableForOnlineConsultation = availableForOnlineConsultation;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
     }
 
     public String getToken() {

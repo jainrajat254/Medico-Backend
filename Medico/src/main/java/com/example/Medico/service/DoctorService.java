@@ -1,5 +1,6 @@
 package com.example.Medico.service;
 
+import com.example.Medico.DTO.EditDocDTO;
 import com.example.Medico.jwt.JWTService;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,5 +109,14 @@ public class DoctorService {
     public Doctor getPersonalInfo(UUID id) {
         return doctorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Doctor not found with UID: " + id));
+    }
+
+    public Doctor editDocPersonalDetails(EditDocDTO userDTO, UUID id) {
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Doctor not found"));
+        doctor.setUid(userDTO.getUid());
+        doctor.setDob(userDTO.getDob());
+        doctor.setPhone(userDTO.getPhone());
+        doctor.setEmail(userDTO.getEmail());
+        return doctorRepository.save(doctor);
     }
 }
