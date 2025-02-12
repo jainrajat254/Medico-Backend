@@ -1,5 +1,7 @@
 package com.example.Medico.controllers;
 
+import com.example.Medico.DTO.DocAddressDetailsDTO;
+import com.example.Medico.DTO.DocMedicalDetailsDTO;
 import com.example.Medico.DTO.EditDocDTO;
 import com.example.Medico.model.Doctor;
 import com.example.Medico.model.LoginCredentials;
@@ -43,6 +45,16 @@ public class DoctorController {
     @PutMapping("editDocPersonalDetails/{id}")
     public Doctor editDocPersonalDetails(@RequestBody @Valid EditDocDTO userDTO, @PathVariable UUID id) {
         return doctorService.editDocPersonalDetails(userDTO, id);
+    }
+
+    @PutMapping("editDocAddressDetails/{id}")
+    public Doctor editDocAddressDetails(@RequestBody @Valid DocAddressDetailsDTO docDTO, @PathVariable UUID id) {
+        return doctorService.editDocAddressDetails(docDTO, id);
+    }
+
+    @PutMapping("editDocMedicalDetails/{id}")
+    public Doctor editDocMedicalDetails(@RequestBody @Valid DocMedicalDetailsDTO docDTO, @PathVariable UUID id) {
+        return doctorService.editDocMedicalDetails(docDTO, id);
     }
 
     @PutMapping("/uploadPhoto/{id}")

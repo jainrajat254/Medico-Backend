@@ -1,5 +1,7 @@
 package com.example.Medico.service;
 
+import com.example.Medico.DTO.DocAddressDetailsDTO;
+import com.example.Medico.DTO.DocMedicalDetailsDTO;
 import com.example.Medico.DTO.EditDocDTO;
 import com.example.Medico.jwt.JWTService;
 import com.example.Medico.model.Doctor;
@@ -55,7 +57,8 @@ public class DoctorService {
                     user.getGender(),
                     user.getBloodGroup(),
                     user.getPhone(),
-                    user.getEmail());
+                    user.getEmail(),
+                    user.getPassword());
         }
 
         // Authenticate doctor
@@ -75,7 +78,7 @@ public class DoctorService {
                     doctor.getZipCode(),
                     doctor.getAddress(),
                     doctor.getWorkspaceName(),
-                    (int) doctor.getFee(),
+                    doctor.getFee(),
                     doctor.getWorkingTime(),
                     doctor.getMedicalRegNo(),
                     doctor.getSpecialization(),
@@ -83,7 +86,8 @@ public class DoctorService {
                     doctor.getExperience(),
                     doctor.getPhone(),
                     doctor.getEmail(),
-                    doctor.isAvailableForOnlineConsultation()
+                    doctor.isAvailableForOnlineConsultation(),
+                    doctor.getPassword()
             );
 
         }
@@ -117,6 +121,27 @@ public class DoctorService {
         doctor.setDob(userDTO.getDob());
         doctor.setPhone(userDTO.getPhone());
         doctor.setEmail(userDTO.getEmail());
+        return doctorRepository.save(doctor);
+    }
+
+    public Doctor editDocAddressDetails(DocAddressDetailsDTO docDTO, UUID id) {
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Doctor not found"));
+        doctor.setWorkspaceName(docDTO.getWorkspaceName());
+        doctor.setAddress(docDTO.getAddress());
+        doctor.setState(docDTO.getState());
+        doctor.setDistrict(docDTO.getDistrict());
+        doctor.setZipCode(docDTO.getZipCode());
+        return doctorRepository.save(doctor);
+    }
+
+    public Doctor editDocMedicalDetails(DocMedicalDetailsDTO docDTO, UUID id) {
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Doctor not found"));
+        doctor.setMedicalRegNo(docDTO.getMedicalRegNo());
+        doctor.setQualification(docDTO.getQualification());
+        doctor.setSpecialization(docDTO.getSpecialization());
+        doctor.setExperience(docDTO.getExperience());
+        doctor.setFee(docDTO.getFee());
+        doctor.setAvailableForOnlineConsultation(docDTO.isAvailableForOnlineConsultation());
         return doctorRepository.save(doctor);
     }
 }

@@ -12,6 +12,7 @@ public class UserResponse {
     private String bloodGroup;
     private String phone;
     private String email;
+    private String password;
 
     public String getToken() {
         return token;
@@ -85,7 +86,15 @@ public class UserResponse {
         this.email = email;
     }
 
-    public UserResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password) {
         this.token = token;
         this.id = id;
         this.firstName = firstName;
@@ -95,5 +104,6 @@ public class UserResponse {
         this.bloodGroup = bloodGroup;
         this.phone = phone;
         this.email = email;
+        this.password = password;
     }
 }

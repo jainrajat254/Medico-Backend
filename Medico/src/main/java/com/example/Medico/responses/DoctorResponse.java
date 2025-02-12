@@ -26,6 +26,7 @@ public class DoctorResponse {
     private String phone;
     private String email;
     private boolean availableForOnlineConsultation;
+    private String password;
 
     public DoctorResponse() {
 
@@ -40,7 +41,7 @@ public class DoctorResponse {
     }
 
 
-    public DoctorResponse(String token, UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, int fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, boolean availableForOnlineConsultation) {
+    public DoctorResponse(String token, UUID id, String uid, String firstName, String lastName, LocalDate dob, String gender, String state, String district, String zipCode, String address, String workspaceName, int fee, List<String> workingTime, String medicalRegNo, String specialization, String qualification, int experience, String phone, String email, boolean availableForOnlineConsultation, String password) {
         this.token = token;
         this.id = id;
         this.uid = uid;
@@ -62,6 +63,7 @@ public class DoctorResponse {
         this.phone = phone;
         this.email = email;
         this.availableForOnlineConsultation = availableForOnlineConsultation;
+        this.password = password;
     }
 
     public UUID getId() {
@@ -230,5 +232,13 @@ public class DoctorResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

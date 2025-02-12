@@ -1,6 +1,7 @@
 package com.example.Medico.service;
 
 import com.example.Medico.DTO.EditUserDTO;
+import com.example.Medico.DTO.PasswordUpdateRequest;
 import com.example.Medico.jwt.JWTService;
 import com.example.Medico.model.*;
 import com.example.Medico.repository.UserRepository;
@@ -66,4 +67,21 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         return userRepository.save(user);
     }
+
+    public void editPassword(PasswordUpdateRequest request, UUID id) {
+        // Fetch user by ID
+        Users user = userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Check if the current password matches the stored password
+        if (!bCryptPasswordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Incorrect current password.");
+        }
+
+        // Update the password
+        user.setPassword(bCryptPasswordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+    }
+
+
 }
