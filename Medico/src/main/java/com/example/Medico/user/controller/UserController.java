@@ -2,6 +2,8 @@ package com.example.Medico.user.controller;
 
 import com.example.Medico.user.dto.EditUserDetails;
 import com.example.Medico.common.dto.EditPassword;
+import com.example.Medico.user.model.UserDetails;
+import com.example.Medico.user.responses.UserDetailsResponse;
 import com.example.Medico.user.service.UserService;
 import com.example.Medico.user.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ public class UserController {
     @PutMapping("editDetails/{id}")
     public Users editDetails(@RequestBody @Valid EditUserDetails userDTO, @PathVariable UUID id) {
         return userService.editDetails(userDTO, id);
+    }
+
+    @PutMapping("extraDetails/{id}")
+    public UserDetails extraDetails(@RequestBody UserDetailsResponse response, @PathVariable UUID id) {
+        return userService.extraDetails(response, id);
     }
 
     @PutMapping("editPassword/{id}")
