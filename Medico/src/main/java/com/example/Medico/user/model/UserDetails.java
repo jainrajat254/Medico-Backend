@@ -12,13 +12,7 @@ public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
-    private Users users;
 
     @Column(name = "height")
     private String height;
@@ -74,7 +68,16 @@ public class UserDetails {
     @Column(name = "photo")
     private byte[] photo;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private Users users;
+
     public UserDetails() {
+    }
+
+    public UserDetails(Users users) {
+        this.users = users;
     }
 
     public UserDetails(Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String state, String district, String city, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails) {
@@ -98,7 +101,7 @@ public class UserDetails {
         this.coverageDetails = coverageDetails;
     }
 
-    public UserDetails(UUID id, Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String state, String district, String city, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails, byte[] photo) {
+    public UserDetails(UUID id, Users users, String height, String weight, LocalDate dob, String emergencyContactName, String emergencyContactRelation, String emergencyContactPhone, String state, String district, String city, String currentAddress, String permanentAddress, String knownHealthConditions, String familyMedicalHistory, String insuranceProvider, String policyNumber, String groupNumber, String coverageDetails) {
         this.id = id;
         this.users = users;
         this.height = height;
@@ -118,7 +121,7 @@ public class UserDetails {
         this.policyNumber = policyNumber;
         this.groupNumber = groupNumber;
         this.coverageDetails = coverageDetails;
-        this.photo = photo;
+//        this.photo = photo;
     }
 
     public UUID getId() {

@@ -19,14 +19,25 @@ public class UserDetailsController {
     @Autowired
     UserDetailsService userDetailsService;
 
-    @PostMapping("/addPersonalInfo/{id}")
-    public UserDetails addPersonalInfo(@RequestBody UserDetailsResponse userDetailsResponse, UUID id) {
-        return userDetailsService.addPersonalInfo(userDetailsResponse,id);
+//    @PostMapping("/addPersonalInfo/{id}")
+//    public UserDetails addPersonalInfo(@RequestBody UserDetailsResponse userDetailsResponse, @PathVariable UUID id) {
+//        return userDetailsService.addPersonalInfo(userDetailsResponse,id);
+//    }
+//
+    @GetMapping("/getPersonalInfo/{id}")
+    public UserDetails getPersonalInfo(@PathVariable UUID id) {
+        return userDetailsService.getPersonalInfo(id);
     }
 
-    @GetMapping("/getPersonalInfo/{id}")
-    public UserDetails getPersonalInfo(UUID id) {
-        return userDetailsService.getPersonalInfo(id);
+    @GetMapping("/getPersonalInfoId/{id}")
+    public String getPersonalInfoId(@PathVariable UUID id) {
+        return userDetailsService.getPersonalInfoId(id);
+    }
+
+    @PutMapping("/extraDetails/{id}")
+    public ResponseEntity<UserDetails> updateExtraDetails(@RequestBody UserDetailsResponse response, @PathVariable UUID id) {
+        UserDetails updatedUser = userDetailsService.extraDetails(response, id);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PutMapping("/uploadPhoto/{id}")

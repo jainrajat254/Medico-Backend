@@ -22,7 +22,7 @@ public class UserDetailsResponse {
     private String policyNumber;
     private String groupNumber;
     private String coverageDetails;
-    private byte[] photo;
+//    private byte[] photo;
 
     public UserDetailsResponse() {
     }
@@ -66,7 +66,7 @@ public class UserDetailsResponse {
         this.policyNumber = policyNumber;
         this.groupNumber = groupNumber;
         this.coverageDetails = coverageDetails;
-        this.photo = photo;
+//        this.photo = photo;
     }
 
     public UUID getId() {
@@ -213,11 +213,11 @@ public class UserDetailsResponse {
         this.coverageDetails = coverageDetails;
     }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
+//    public byte[] getPhoto() {
+//        return photo;
+//    }
+//
+//    public void setPhoto(byte[] photo) {
+//        this.photo = photo;
+//    }
 }

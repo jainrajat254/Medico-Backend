@@ -1,5 +1,6 @@
 package com.example.Medico.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.Email;
@@ -46,10 +47,10 @@ public class Users {
     @Size(max = 15, message = "Phone number cannot exceed 15 characters")
     private String phone;
 
-    @Column(name = "role", nullable = false, updatable = false, insertable = false)
+    @Column(name = "role", nullable = false, updatable = false)
     private final String role = "USER";
 
-    @Column(name = "email", nullable = false, length = 200)
+    @Column(name = "email", nullable = false, length = 200, unique = true)
     @NotNull(message = "Email cannot be null")
     @Email(message = "Email should be valid")
     private String email;
@@ -59,8 +60,12 @@ public class Users {
     @Size(min = 6, message = "Password should be at least 6 characters")
     private String password;
 
-    public Users() {
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private UserDetails userDetails;
 
+    public Users() {
+        this.userDetails = new UserDetails(this); // Auto-create UserDetails with null values
     }
 
     public Users(UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password) {
@@ -73,6 +78,7 @@ public class Users {
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.userDetails = new UserDetails(this);
     }
 
     public UUID getId() {
@@ -145,5 +151,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }

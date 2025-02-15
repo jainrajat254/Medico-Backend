@@ -28,11 +28,6 @@ public class UserController {
         return userService.editDetails(userDTO, id);
     }
 
-    @PutMapping("extraDetails/{id}")
-    public UserDetails extraDetails(@RequestBody UserDetailsResponse response, @PathVariable UUID id) {
-        return userService.extraDetails(response, id);
-    }
-
     @PutMapping("editPassword/{id}")
     public ResponseEntity<?> editPassword(@RequestBody EditPassword request, @PathVariable UUID id) {
         try {
