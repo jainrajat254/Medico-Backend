@@ -27,9 +27,15 @@ public class MedicationsService {
         Medications medication = new Medications(
                 medicationsResponse.getMedicationName(),
                 medicationsResponse.getDosage(),
+                medicationsResponse.getDosageType(),   // ✅ Added new field
+                medicationsResponse.getMedicationType(), // ✅ Added new field
                 medicationsResponse.getFrequency(),
+                medicationsResponse.getDuration(),    // ✅ Added new field
+                medicationsResponse.getIntakeMethod(), // ✅ Added new field
+                medicationsResponse.getTime(),        // ✅ Added new field
                 user
         );
+
         return medicationsRepository.save(medication);
     }
 

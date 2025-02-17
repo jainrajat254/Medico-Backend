@@ -1,5 +1,6 @@
 package com.example.Medico.doctor.service;
 
+import com.example.Medico.doctor.dto.DoctorDTO;
 import com.example.Medico.doctor.dto.EditDocAddressDetails;
 import com.example.Medico.doctor.dto.EditDocMedicalDetails;
 import com.example.Medico.doctor.dto.EditDocPersonalDetails;
@@ -15,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorService {
@@ -78,5 +81,32 @@ public class DoctorService {
         doctorDetails.setFee(docDTO.getFee());
         doctorDetails.setAvailableForOnlineConsultation(docDTO.isAvailableForOnlineConsultation());
         return doctorRepository.save(doctorDetails);
+    }
+
+    public List<DoctorDTO> getAllDoctors() {
+        List<DoctorDetails> doctors = doctorRepository.findAll();
+        return doctors.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private DoctorDTO convertToDTO(DoctorDetails doctor) {
+        return new DoctorDTO(
+                doctor.getId(),
+                doctor.getFirstName(),
+                doctor.getLastName(),
+                doctor.getGender(),
+                doctor.getSpecialization(),
+                doctor.getExperience(),
+                doctor.getFee(),
+                doctor.getWorkspaceName(),
+                doctor.getAddress(),
+                doctor.getMedicalRegNo(),
+                doctor.getQualification(),
+                doctor.getState(),
+                doctor.getDistrict(),
+                doctor.getZipCode(),
+                doctor.getPhone(),
+                doctor.getEmail(),
+                doctor.isAvailableForOnlineConsultation()
+        );
     }
 }

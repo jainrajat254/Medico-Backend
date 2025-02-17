@@ -24,23 +24,52 @@ public class Medications {
     @Column(name = "dosage", nullable = false)
     private String dosage;
 
+    @Column(name = "dosage_type", nullable = false)
+    private String dosageType; // New Field ✅
+
+    @Column(name = "medication_type", nullable = false)
+    private String medicationType; // New Field ✅
+
     @Column(name = "frequency", nullable = false)
     private String frequency;
 
-    // ✅ Constructor including ID (for custom assignment)
-    public Medications(UUID id, String medicationName, String dosage, String frequency, Users users) {
+    @Column(name = "duration", nullable = false)
+    private String duration; // New Field ✅
+
+    @Column(name = "intake_method", nullable = false)
+    private String intakeMethod; // New Field ✅
+
+    @Column(name = "time")
+    private String time; // New Field (Optional) ⏰
+
+    // ✅ Constructor (with ID for custom assignment)
+    public Medications(UUID id, String medicationName, String dosage, String dosageType,
+                       String medicationType, String frequency, String duration,
+                       String intakeMethod, String time, Users users) {
         this.id = id;
         this.medicationName = medicationName;
         this.dosage = dosage;
+        this.dosageType = dosageType;
+        this.medicationType = medicationType;
         this.frequency = frequency;
+        this.duration = duration;
+        this.intakeMethod = intakeMethod;
+        this.time = time;
         this.users = users;
     }
 
-    // ✅ Constructor without ID (for auto-generated ID)
-    public Medications(String medicationName, String dosage, String frequency, Users users) {
+    // ✅ Constructor (without ID for auto-generated)
+    public Medications(String medicationName, String dosage, String dosageType,
+                       String medicationType, String frequency, String duration,
+                       String intakeMethod, String time, Users users) {
         this.medicationName = medicationName;
         this.dosage = dosage;
+        this.dosageType = dosageType;
+        this.medicationType = medicationType;
         this.frequency = frequency;
+        this.duration = duration;
+        this.intakeMethod = intakeMethod;
+        this.time = time;
         this.users = users;
     }
 
@@ -48,7 +77,7 @@ public class Medications {
     public Medications() {
     }
 
-    // ✅ Getter & Setter for ID
+    // ✅ Getters & Setters
     public UUID getId() {
         return id;
     }
@@ -73,12 +102,52 @@ public class Medications {
         this.dosage = dosage;
     }
 
+    public String getDosageType() {
+        return dosageType;
+    }
+
+    public void setDosageType(String dosageType) {
+        this.dosageType = dosageType;
+    }
+
+    public String getMedicationType() {
+        return medicationType;
+    }
+
+    public void setMedicationType(String medicationType) {
+        this.medicationType = medicationType;
+    }
+
     public String getFrequency() {
         return frequency;
     }
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getIntakeMethod() {
+        return intakeMethod;
+    }
+
+    public void setIntakeMethod(String intakeMethod) {
+        this.intakeMethod = intakeMethod;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Users getUsers() {

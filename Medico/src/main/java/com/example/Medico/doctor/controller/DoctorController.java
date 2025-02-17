@@ -1,5 +1,6 @@
 package com.example.Medico.doctor.controller;
 
+import com.example.Medico.doctor.dto.DoctorDTO;
 import com.example.Medico.doctor.dto.EditDocAddressDetails;
 import com.example.Medico.doctor.dto.EditDocMedicalDetails;
 import com.example.Medico.doctor.dto.EditDocPersonalDetails;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -62,5 +64,10 @@ public class DoctorController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
                 .body(doctorDetails.getProfilePicture());
+    }
+
+    @GetMapping("/getDoctors")
+    public List<DoctorDTO> getAllDoctors() {
+        return doctorService.getAllDoctors();
     }
 }
