@@ -6,6 +6,7 @@ import com.example.Medico.user.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +22,12 @@ public class ReportsController {
     @Autowired
     ReportsService reportsService;
 
-    @PostMapping("/addReport/{id}")
+    @PostMapping(value = "/addReport/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Reports addReport(
-            @RequestParam("reportName") String reportName,
-            @RequestParam("reviewedBy") String reviewedBy,
-            @RequestParam("attentionLevel") String attentionLevel,
-            @RequestParam("reportFile") MultipartFile reportFile,  // File upload
+            @RequestPart("reportName") String reportName,
+            @RequestPart("reviewedBy") String reviewedBy,
+            @RequestPart("attentionLevel") String attentionLevel,
+            @RequestPart("reportFile") MultipartFile reportFile,  // File upload
             @PathVariable UUID id) throws IOException {
 
         if (reportFile.isEmpty()) {
@@ -45,10 +46,11 @@ public class ReportsController {
         return reportsService.addReport(reportsResponse, id);
     }
 
-    @GetMapping("/getReports/{id}")
-    public List<Reports> getReports(@PathVariable UUID id) {
-        return reportsService.getReport(id);
+    @GetMapping("/getReports/{user_id}")
+    public List<ReportsResponse> getReports(@PathVariable UUID user_id) {
+        return reportsService.getReport(user_id);
     }
+
 
     @GetMapping("/getReportFile/{reportId}")
     public ResponseEntity<byte[]> getReportFile(@PathVariable UUID reportId) {

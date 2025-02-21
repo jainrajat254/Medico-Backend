@@ -4,30 +4,49 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class AppointmentsResponse {
-    private UUID id;
+    private UUID userId;
+    private UUID doctorId;
     private String doctorName;
-    private String type;
-    private String specialist;
-    private LocalDateTime time;
+    private String patientName;
+    private String date;
+    private String time;
+    private String specialization;
+    private String workspaceName;
+    private LocalDateTime appointmentBookingTime;
 
-    private AppointmentsResponse() {
-
-    }
-
-    public AppointmentsResponse(UUID id, String doctorName, String type, String specialist, LocalDateTime time) {
-        this.id = id;
+    public AppointmentsResponse(UUID userId, UUID doctorId, String doctorName, String patientName, String date, String time, String specialization, String workspaceName) {
+        this.userId = userId;
+        this.doctorId = doctorId;
         this.doctorName = doctorName;
-        this.type = type;
-        this.specialist = specialist;
+        this.patientName = patientName;
+        this.date = date;
         this.time = time;
+        this.specialization = specialization;
+        this.workspaceName = workspaceName;
     }
 
-    public UUID getId() {
-        return id;
+    public AppointmentsResponse(UUID userId,String patientName, String date, String time, LocalDateTime appointmentBookingTime) {
+        this.userId = userId;
+        this.patientName = patientName;
+        this.date = date;
+        this.time = time;
+        this.appointmentBookingTime = appointmentBookingTime;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getDoctorName() {
@@ -38,27 +57,50 @@ public class AppointmentsResponse {
         this.doctorName = doctorName;
     }
 
-    public String getType() {
-        return type;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public String getSpecialist() {
-        return specialist;
+    public String getDate() {
+        return date;
     }
 
-    public void setSpecialist(String specialist) {
-        this.specialist = specialist;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getWorkspaceName() {
+        return workspaceName;
+    }
+
+    public void setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
+    }
+    public LocalDateTime getAppointmentBookingTime() {
+        return appointmentBookingTime;
+    }
+
+    public void setAppointmentBookingTime(LocalDateTime appointmentBookingTime) {
+        this.appointmentBookingTime = appointmentBookingTime;
     }
 }

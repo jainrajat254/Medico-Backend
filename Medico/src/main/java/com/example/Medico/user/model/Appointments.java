@@ -2,6 +2,7 @@ package com.example.Medico.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,42 +16,47 @@ public class Appointments {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private Users users;
+
+    @Column(name = "doctor_Id",nullable = false)
+    private UUID doctorId;
 
     @Column(name = "doctor_name", nullable = false)
     private String doctorName;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "patient_name", nullable = false)
+    private String patientName;
 
-    public Appointments(Users users, String doctorName, String type, String specialist, LocalDateTime time) {
-        this.users = users;
-        this.doctorName = doctorName;
-        this.type = type;
-        this.specialist = specialist;
-        this.time = time;
-    }
-
-    @Column(name = "specialist", nullable = false)
-    private String specialist;
+    @Column(name = "date", nullable = false)
+    private String date;
 
     @Column(name = "time", nullable = false)
-    private LocalDateTime time;
+    private String time;
+
+    @Column(name = "specialization", nullable = false)
+    private String specialization;
+
+    @Column(name = "workspace_name", nullable = false)
+    private String workspaceName;
+
+    @CreationTimestamp
+    @Column(name = "appointment_booking_time", updatable = false)
+    private LocalDateTime appointmentBookingTime;
 
     public Appointments() {
 
     }
 
-    public Appointments(UUID id, Users users, String doctorName, String type, String specialist, LocalDateTime time) {
-        this.id = id;
+    public Appointments(Users users, String doctorName, String date, String time,String specialization, String workspaceName) {
         this.users = users;
         this.doctorName = doctorName;
-        this.type = type;
-        this.specialist = specialist;
+        this.date = date;
         this.time = time;
+        this.specialization = specialization;
+        this.workspaceName = workspaceName;
     }
 
     public UUID getId() {
@@ -69,6 +75,14 @@ public class Appointments {
         this.users = users;
     }
 
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public String getDoctorName() {
         return doctorName;
     }
@@ -77,27 +91,51 @@ public class Appointments {
         this.doctorName = doctorName;
     }
 
-    public String getType() {
-        return type;
+    public String getDate() {
+        return date;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getSpecialist() {
-        return specialist;
-    }
-
-    public void setSpecialist(String specialist) {
-        this.specialist = specialist;
-    }
-
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getWorkspaceName() {
+        return workspaceName;
+    }
+
+    public void setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
+    }
+
+    public LocalDateTime getAppointmentBookingTime() {
+        return appointmentBookingTime;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public void setAppointmentBookingTime(LocalDateTime appointmentBookingTime) {
+        this.appointmentBookingTime = appointmentBookingTime;
     }
 }

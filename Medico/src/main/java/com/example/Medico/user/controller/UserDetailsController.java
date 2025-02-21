@@ -19,11 +19,6 @@ public class UserDetailsController {
     @Autowired
     UserDetailsService userDetailsService;
 
-//    @PostMapping("/addPersonalInfo/{id}")
-//    public UserDetails addPersonalInfo(@RequestBody UserDetailsResponse userDetailsResponse, @PathVariable UUID id) {
-//        return userDetailsService.addPersonalInfo(userDetailsResponse,id);
-//    }
-//
     @GetMapping("/getPersonalInfo/{id}")
     public UserDetails getPersonalInfo(@PathVariable UUID id) {
         return userDetailsService.getPersonalInfo(id);

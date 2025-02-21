@@ -106,6 +106,7 @@ public class DoctorService {
                 doctor.getZipCode(),
                 doctor.getPhone(),
                 doctor.getEmail(),
+                doctor.getWorkingTime(),
                 doctor.isAvailableForOnlineConsultation()
         );
     }

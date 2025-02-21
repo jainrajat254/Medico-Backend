@@ -2,6 +2,7 @@ package com.example.Medico.user.controller;
 
 import com.example.Medico.doctor.model.DoctorDetails;
 import com.example.Medico.doctor.service.DoctorService;
+import com.example.Medico.user.dto.AppointmentDTO;
 import com.example.Medico.user.model.Appointments;
 import com.example.Medico.user.responses.AppointmentsResponse;
 import com.example.Medico.user.service.AppointmentsService;
@@ -22,13 +23,18 @@ public class AppointmentsController {
     @Autowired
     DoctorService doctorService;
 
-    @PostMapping("/addAppointments/{id}")
-    public Appointments addAppointments(@RequestBody AppointmentsResponse appointmentsResponse, @PathVariable UUID id) {
-        return appointmentsService.addAppointments(appointmentsResponse, id);
+    @PostMapping("/addAppointments")
+    public Appointments addAppointments(@RequestBody AppointmentsResponse appointmentsResponse) {
+        return appointmentsService.addAppointments(appointmentsResponse);
     }
 
     @GetMapping("/getAppointments/{id}")
     public List<Appointments> getAppointments(@PathVariable UUID id) {
         return appointmentsService.getAppointments(id);
+    }
+
+    @GetMapping("getDoctorAppointments/{doctorId}")
+    public List<AppointmentDTO> getDoctorAppointments(@PathVariable UUID doctorId) {
+        return appointmentsService.getDoctorAppointments(doctorId);
     }
 }

@@ -10,9 +10,17 @@ public class ReportsResponse {
     private String attentionLevel;
     private byte[] report;
 
+    public ReportsResponse(UUID id, String reportName, String reviewedBy, String attentionLevel) {
+        this.id = id;
+        this.reportName = reportName;
+        this.reviewedBy = reviewedBy;
+        this.attentionLevel = attentionLevel;
+    }
+
     public ReportsResponse() {
 
     }
+
     public ReportsResponse(UUID id, String reportName, String reviewedBy, String attentionLevel, byte[] report) {
         this.id = id;
         this.reportName = reportName;

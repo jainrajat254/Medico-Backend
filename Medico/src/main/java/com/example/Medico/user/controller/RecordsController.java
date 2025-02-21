@@ -16,12 +16,12 @@ public class RecordsController {
     @Autowired
     RecordsService recordsService;
 
-    @PutMapping("/addRecord*/{id}")
+    @PutMapping("/addRecord/{id}")
     public Records addRecord(@RequestBody RecordsResponse recordsResponse, @PathVariable UUID id) {
         return recordsService.addRecord(recordsResponse, id);
     }
 
-    @GetMapping("/getMapping/{id}")
+    @GetMapping("/getRecord/{id}")
     public List<Records> getRecord(@PathVariable UUID id) {
         return recordsService.getRecord(id);
     }

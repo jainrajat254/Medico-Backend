@@ -2,6 +2,8 @@ package com.example.Medico.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import javax.validation.constraints.Null;
 import java.util.UUID;
 
 @Entity
@@ -18,11 +20,11 @@ public class Medications {
     @JsonIgnore
     private Users users;
 
+    @Column(name = "doctor_id", nullable = false, updatable = false)
+    private UUID doctorId;
+
     @Column(name = "medication_name", nullable = false)
     private String medicationName;
-
-    @Column(name = "dosage", nullable = false)
-    private String dosage;
 
     @Column(name = "dosage_type", nullable = false)
     private String dosageType; // New Field ✅
@@ -40,30 +42,14 @@ public class Medications {
     private String intakeMethod; // New Field ✅
 
     @Column(name = "time")
+    @Null
     private String time; // New Field (Optional) ⏰
 
-    // ✅ Constructor (with ID for custom assignment)
-    public Medications(UUID id, String medicationName, String dosage, String dosageType,
+    public Medications(UUID doctorId, String medicationName, String dosageType,
                        String medicationType, String frequency, String duration,
                        String intakeMethod, String time, Users users) {
-        this.id = id;
+        this.doctorId = doctorId;
         this.medicationName = medicationName;
-        this.dosage = dosage;
-        this.dosageType = dosageType;
-        this.medicationType = medicationType;
-        this.frequency = frequency;
-        this.duration = duration;
-        this.intakeMethod = intakeMethod;
-        this.time = time;
-        this.users = users;
-    }
-
-    // ✅ Constructor (without ID for auto-generated)
-    public Medications(String medicationName, String dosage, String dosageType,
-                       String medicationType, String frequency, String duration,
-                       String intakeMethod, String time, Users users) {
-        this.medicationName = medicationName;
-        this.dosage = dosage;
         this.dosageType = dosageType;
         this.medicationType = medicationType;
         this.frequency = frequency;
@@ -92,14 +78,6 @@ public class Medications {
 
     public void setMedicationName(String medicationName) {
         this.medicationName = medicationName;
-    }
-
-    public String getDosage() {
-        return dosage;
-    }
-
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
     }
 
     public String getDosageType() {
@@ -156,5 +134,13 @@ public class Medications {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public UUID getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
     }
 }

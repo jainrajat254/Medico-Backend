@@ -1,5 +1,6 @@
 package com.example.Medico.user.controller;
 
+import com.example.Medico.user.dto.MedicationsDTO;
 import com.example.Medico.user.model.Medications;
 import com.example.Medico.user.responses.MedicationsResponse;
 import com.example.Medico.user.service.MedicationsService;
@@ -24,5 +25,15 @@ public class MedicationsController {
     @GetMapping("/getMedication/{id}")
     public List<Medications> getMedications(@PathVariable UUID id) {
         return medicationsService.getMedications(id);
+    }
+
+    @GetMapping("/doctorMedication/{doctorId}/{userId}")
+    public List<MedicationsDTO> doctorMedication(@PathVariable UUID doctorId, @PathVariable UUID userId) {
+        return medicationsService.doctorMedication(doctorId,userId);
+    }
+
+    @PutMapping("/updateMedication/{medId}")
+    public Medications updateMedication(@PathVariable UUID medId, @RequestBody Medications updatedMedication) {
+        return medicationsService.updateMedication(medId, updatedMedication);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Medico.doctor.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public class DoctorDTO {
@@ -19,9 +20,10 @@ public class DoctorDTO {
     private String zipCode;
     private String phone;
     private String email;
+    private List<String> workingTime;
     private boolean availableForOnlineConsultation;
 
-    public DoctorDTO(UUID id, String firstName, String lastName, String gender, String specialization, int experience, int fee, String workspaceName, String address, String medicalRegNo, String qualification, String state, String district, String zipCode, String phone, String email, boolean availableForOnlineConsultation) {
+    public DoctorDTO(UUID id, String firstName, String lastName, String gender, String specialization, int experience, int fee, String workspaceName, String address, String medicalRegNo, String qualification, String state, String district, String zipCode, String phone, String email, List<String> workingTime, boolean availableForOnlineConsultation) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,6 +40,7 @@ public class DoctorDTO {
         this.zipCode = zipCode;
         this.phone = phone;
         this.email = email;
+        this.workingTime = workingTime;
         this.availableForOnlineConsultation = availableForOnlineConsultation;
     }
 
@@ -169,6 +172,14 @@ public class DoctorDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<String> getWorkingTime() {
+        return workingTime;
+    }
+
+    public void setWorkingTime(List<String> workingTime) {
+        this.workingTime = workingTime;
     }
 
     public boolean isAvailableForOnlineConsultation() {

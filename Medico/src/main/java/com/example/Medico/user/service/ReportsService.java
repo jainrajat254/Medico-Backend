@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportsService {
@@ -37,9 +38,10 @@ public class ReportsService {
         return report;
     }
 
-    public List<Reports> getReport(UUID id) {
-        return reportsRepository.findByUsers_Id(id);
+    public List<ReportsResponse> getReport(UUID userId) {
+        return reportsRepository.findReportsByUserId(userId);
     }
+
 
     public Reports getReportFile(UUID reportId) {
         return reportsRepository.findById(reportId)

@@ -3,6 +3,7 @@ package com.example.Medico.user.service;
 import com.example.Medico.user.dto.EditUserDetails;
 import com.example.Medico.common.dto.EditPassword;
 import com.example.Medico.common.jwt.JWTService;
+import com.example.Medico.user.dto.UserDTO;
 import com.example.Medico.user.model.UserDetails;
 import com.example.Medico.user.repository.UserDetailsRepository;
 import com.example.Medico.user.repository.UserRepository;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserDetailsRepository userDetailsRepository;
 
     @Autowired
     JWTService jwtService;
@@ -49,5 +53,24 @@ public class UserService {
         }
         user.setPassword(bCryptPasswordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
+    }
+
+    public UserDTO getDetails(UUID id) {
+        Users user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserDetails userDetails = userDetailsRepository.findByUsers_Id(id)
+                .orElseThrow(() -> new RuntimeException("UserDetails not found for user ID: " + id));
+
+        return new UserDTO(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getAge(),
+                user.getGender(),
+                userDetails.getHeight(),
+                userDetails.getWeight(),
+                user.getBloodGroup(),
+                user.getPhone(),
+                user.getEmail()
+        );
     }
 }

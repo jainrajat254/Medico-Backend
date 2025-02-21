@@ -1,10 +1,9 @@
-package com.example.Medico.user.responses;
+package com.example.Medico.user.dto;
 
 import java.util.UUID;
 
-public class MedicationsResponse {
+public class MedicationsDTO {
     private UUID id;
-    private UUID doctorId;
     private String medicationName;
     private String dosageType;  // ✅ New field
     private String medicationType;  // ✅ New field
@@ -13,12 +12,8 @@ public class MedicationsResponse {
     private String intakeMethod;  // ✅ New field
     private String time;  // ✅ New field
 
-    // ✅ Updated Constructor
-    public MedicationsResponse(UUID id,UUID doctorId, String medicationName, String dosageType,
-                               String medicationType, String frequency, String duration,
-                               String intakeMethod, String time) {
+    public MedicationsDTO(UUID id, String medicationName, String dosageType, String medicationType, String frequency, String duration, String intakeMethod, String time) {
         this.id = id;
-        this.doctorId = doctorId;
         this.medicationName = medicationName;
         this.dosageType = dosageType;
         this.medicationType = medicationType;
@@ -28,11 +23,6 @@ public class MedicationsResponse {
         this.time = time;
     }
 
-    // ✅ Default Constructor
-    public MedicationsResponse() {
-    }
-
-    // ✅ Getters & Setters
     public UUID getId() {
         return id;
     }
@@ -48,7 +38,6 @@ public class MedicationsResponse {
     public void setMedicationName(String medicationName) {
         this.medicationName = medicationName;
     }
-
 
     public String getDosageType() {
         return dosageType;
@@ -82,14 +71,6 @@ public class MedicationsResponse {
         this.duration = duration;
     }
 
-    public UUID getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(UUID doctorId) {
-        this.doctorId = doctorId;
-    }
-
     public String getIntakeMethod() {
         return intakeMethod;
     }
@@ -106,3 +87,4 @@ public class MedicationsResponse {
         this.time = time;
     }
 }
+
