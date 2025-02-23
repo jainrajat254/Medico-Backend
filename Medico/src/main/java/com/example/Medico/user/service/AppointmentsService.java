@@ -26,8 +26,8 @@ public class AppointmentsService {
     DoctorRepository doctorRepository;
 
 
-    public Appointments addAppointments(AppointmentsResponse appointmentsResponse) {
-        Users user = userRepository.findById(appointmentsResponse.getUserId())
+    public Appointments addAppointments(AppointmentsResponse appointmentsResponse, UUID id) {
+        Users user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Appointments appointment = new Appointments();

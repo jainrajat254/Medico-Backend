@@ -1,10 +1,12 @@
 package com.example.Medico.user.responses;
 
+import com.example.Medico.user.model.Users;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class AppointmentsResponse {
-    private UUID userId;
+    private Users users;
     private UUID doctorId;
     private String doctorName;
     private String patientName;
@@ -14,8 +16,8 @@ public class AppointmentsResponse {
     private String workspaceName;
     private LocalDateTime appointmentBookingTime;
 
-    public AppointmentsResponse(UUID userId, UUID doctorId, String doctorName, String patientName, String date, String time, String specialization, String workspaceName) {
-        this.userId = userId;
+    public AppointmentsResponse(Users users, UUID doctorId, String doctorName, String patientName, String date, String time, String specialization, String workspaceName) {
+        this.users = users;
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.patientName = patientName;
@@ -25,20 +27,24 @@ public class AppointmentsResponse {
         this.workspaceName = workspaceName;
     }
 
-    public AppointmentsResponse(UUID userId,String patientName, String date, String time, LocalDateTime appointmentBookingTime) {
-        this.userId = userId;
+    public AppointmentsResponse() {
+
+    }
+
+    public AppointmentsResponse(Users users,String patientName, String date, String time, LocalDateTime appointmentBookingTime) {
+        this.users = users;
         this.patientName = patientName;
         this.date = date;
         this.time = time;
         this.appointmentBookingTime = appointmentBookingTime;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public Users getUserId() {
+        return users;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUserId(Users users) {
+        this.users = users;
     }
 
     public UUID getDoctorId() {

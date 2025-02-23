@@ -2,8 +2,10 @@ package com.example.Medico.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Null;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -23,32 +25,39 @@ public class Medications {
     @Column(name = "doctor_id", nullable = false, updatable = false)
     private UUID doctorId;
 
+    @Column(name = "doctor_name", nullable = false, updatable = false)
+    private String doctorName;
+
     @Column(name = "medication_name", nullable = false)
     private String medicationName;
 
     @Column(name = "dosage_type", nullable = false)
-    private String dosageType; // New Field ✅
+    private String dosageType;
 
     @Column(name = "medication_type", nullable = false)
-    private String medicationType; // New Field ✅
+    private String medicationType;
 
     @Column(name = "frequency", nullable = false)
     private String frequency;
 
     @Column(name = "duration", nullable = false)
-    private String duration; // New Field ✅
+    private String duration;
 
     @Column(name = "intake_method", nullable = false)
-    private String intakeMethod; // New Field ✅
+    private String intakeMethod;
 
     @Column(name = "time")
-    @Null
-    private String time; // New Field (Optional) ⏰
+    private String time;
 
-    public Medications(UUID doctorId, String medicationName, String dosageType,
-                       String medicationType, String frequency, String duration,
-                       String intakeMethod, String time, Users users) {
+    @CreationTimestamp
+    @Column(name = "start_date", nullable = false, updatable = false)
+    private LocalDate startDate;
+
+    public Medications(Users users, UUID doctorId, String doctorName, String medicationName, String dosageType,
+                       String medicationType, String frequency, String duration, String intakeMethod, String time) {
+        this.users = users;
         this.doctorId = doctorId;
+        this.doctorName = doctorName;
         this.medicationName = medicationName;
         this.dosageType = dosageType;
         this.medicationType = medicationType;
@@ -56,10 +65,9 @@ public class Medications {
         this.duration = duration;
         this.intakeMethod = intakeMethod;
         this.time = time;
-        this.users = users;
+        this.startDate = LocalDate.now(); // ✅ Automatically set the current date
     }
 
-    // ✅ Default constructor
     public Medications() {
     }
 
@@ -142,5 +150,21 @@ public class Medications {
 
     public void setDoctorId(UUID doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 }

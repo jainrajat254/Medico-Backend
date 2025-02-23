@@ -30,6 +30,7 @@ public class ReportsService {
         report.setReportName(reportsResponse.getReportName());
         report.setReviewedBy(reportsResponse.getReviewedBy());
         report.setAttentionLevel(reportsResponse.getAttentionLevel());
+        report.setDate(reportsResponse.getDate());
         report.setUsers(user);
 
         byte[] reportData = reportsResponse.getReport();

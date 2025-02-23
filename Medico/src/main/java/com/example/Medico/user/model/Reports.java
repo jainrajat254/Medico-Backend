@@ -2,7 +2,9 @@ package com.example.Medico.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +29,10 @@ public class Reports {
 
     @Column(name = "attention_level",nullable = false)
     private String attentionLevel;
+
+    @CreationTimestamp
+    @Column(name = "date", updatable = false)
+    private LocalDate date;
 
     @Lob
     @Column(name = "report",nullable = false,updatable = false)
@@ -91,5 +97,13 @@ public class Reports {
 
     public void setReport(byte[] report) {
         this.report = report;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 public class MedicationsResponse {
     private UUID id;
     private UUID doctorId;
+    private String doctorName;
     private String medicationName;
     private String dosageType;  // ✅ New field
     private String medicationType;  // ✅ New field
@@ -13,12 +14,10 @@ public class MedicationsResponse {
     private String intakeMethod;  // ✅ New field
     private String time;  // ✅ New field
 
-    // ✅ Updated Constructor
-    public MedicationsResponse(UUID id,UUID doctorId, String medicationName, String dosageType,
-                               String medicationType, String frequency, String duration,
-                               String intakeMethod, String time) {
+    public MedicationsResponse(UUID id, UUID doctorId, String doctorName, String medicationName, String dosageType, String medicationType, String frequency, String duration, String intakeMethod, String time) {
         this.id = id;
         this.doctorId = doctorId;
+        this.doctorName = doctorName;
         this.medicationName = medicationName;
         this.dosageType = dosageType;
         this.medicationType = medicationType;
@@ -104,5 +103,13 @@ public class MedicationsResponse {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 }

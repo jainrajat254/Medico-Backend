@@ -2,10 +2,12 @@ package com.example.Medico.user.service;
 
 import com.example.Medico.user.dto.MedicationsDTO;
 import com.example.Medico.user.model.Medications;
-import com.example.Medico.user.responses.MedicationsResponse;
+import com.example.Medico.user.model.OldMedications;
 import com.example.Medico.user.model.Users;
 import com.example.Medico.user.repository.MedicationsRepository;
+import com.example.Medico.user.repository.OldMedicationsRepository;
 import com.example.Medico.user.repository.UserRepository;
+import com.example.Medico.user.responses.MedicationsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,24 +24,31 @@ public class MedicationsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OldMedicationsRepository oldMedicationsRepository;
+
     public Medications addMedication(MedicationsResponse medicationsResponse, UUID id) {
         Users user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        String time = (medicationsResponse.getTime() == null || medicationsResponse.getTime().isEmpty()) ? null : medicationsResponse.getTime();
+
         Medications medication = new Medications(
+                user,
                 medicationsResponse.getDoctorId(),
+                medicationsResponse.getDoctorName(),
                 medicationsResponse.getMedicationName(),
-                medicationsResponse.getDosageType(),   // ✅ Added new field
-                medicationsResponse.getMedicationType(), // ✅ Added new field
+                medicationsResponse.getDosageType(),
+                medicationsResponse.getMedicationType(),
                 medicationsResponse.getFrequency(),
-                medicationsResponse.getDuration(),    // ✅ Added new field
-                medicationsResponse.getIntakeMethod(), // ✅ Added new field
-                medicationsResponse.getTime(),        // ✅ Added new field
-                user
+                medicationsResponse.getDuration(),
+                medicationsResponse.getIntakeMethod(),
+                time
         );
 
         return medicationsRepository.save(medication);
     }
+
 
     public List<Medications> getMedications(UUID id) {
         return medicationsRepository.findByUsers_Id(id);
@@ -83,4 +92,29 @@ public class MedicationsService {
         }
     }
 
+    public void removeMedication(UUID medId) {
+        Optional<Medications> medicationOpt = medicationsRepository.findById(medId);
+
+        if (medicationOpt.isPresent()) {
+            Medications medication = medicationOpt.get();
+
+            OldMedications oldMedication = new OldMedications(
+                    medication.getUsers(),
+                    medication.getDoctorId(),
+                    medication.getDoctorName(),
+                    medication.getMedicationName(),
+                    medication.getStartDate()
+            );
+
+            oldMedicationsRepository.save(oldMedication); // ✅ Save in old medications
+
+            medicationsRepository.deleteById(medId); // ✅ Delete from current medications
+        } else {
+            throw new RuntimeException("Medication not found with ID: " + medId);
+        }
+    }
+
+    public List<OldMedications> oldMedications(UUID userId) {
+        return oldMedicationsRepository.findByUserId(userId);
+    }
 }

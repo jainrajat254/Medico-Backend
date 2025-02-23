@@ -15,7 +15,7 @@ import java.util.UUID;
 public interface ReportsRepository extends JpaRepository<Reports, UUID> {
     List<Reports> findByUsers_Id(UUID id);
 
-    @Query("SELECT new com.example.Medico.user.responses.ReportsResponse(u.id, u.reportName, u.reviewedBy, u.attentionLevel) FROM Reports u WHERE u.users.id = :userId")
+    @Query("SELECT new com.example.Medico.user.responses.ReportsResponse(u.id, u.reportName, u.reviewedBy, u.attentionLevel, u.date) FROM Reports u WHERE u.users.id = :userId")
     List<ReportsResponse> findReportsByUserId(@Param("userId") UUID userId);
 
 }

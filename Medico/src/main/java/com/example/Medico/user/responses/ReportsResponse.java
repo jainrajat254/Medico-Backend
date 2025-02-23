@@ -1,5 +1,6 @@
 package com.example.Medico.user.responses;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ReportsResponse {
@@ -9,12 +10,14 @@ public class ReportsResponse {
     private String reviewedBy;
     private String attentionLevel;
     private byte[] report;
+    private LocalDate date;
 
-    public ReportsResponse(UUID id, String reportName, String reviewedBy, String attentionLevel) {
+    public ReportsResponse(UUID id, String reportName, String reviewedBy, String attentionLevel, LocalDate date) {
         this.id = id;
         this.reportName = reportName;
         this.reviewedBy = reviewedBy;
         this.attentionLevel = attentionLevel;
+        this.date = date;
     }
 
     public ReportsResponse() {
@@ -67,5 +70,13 @@ public class ReportsResponse {
 
     public void setReport(byte[] report) {
         this.report = report;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

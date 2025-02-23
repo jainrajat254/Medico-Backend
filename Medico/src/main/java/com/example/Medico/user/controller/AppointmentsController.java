@@ -23,9 +23,9 @@ public class AppointmentsController {
     @Autowired
     DoctorService doctorService;
 
-    @PostMapping("/addAppointments")
-    public Appointments addAppointments(@RequestBody AppointmentsResponse appointmentsResponse) {
-        return appointmentsService.addAppointments(appointmentsResponse);
+    @PostMapping("/addAppointments/{id}")
+    public Appointments addAppointments(@RequestBody AppointmentsResponse appointmentsResponse, @PathVariable UUID id) {
+        return appointmentsService.addAppointments(appointmentsResponse,id);
     }
 
     @GetMapping("/getAppointments/{id}")
