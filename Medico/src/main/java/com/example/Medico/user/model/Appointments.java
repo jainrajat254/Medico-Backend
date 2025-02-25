@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,17 +22,22 @@ public class Appointments {
     @JsonIgnore
     private Users users;
 
-    @Column(name = "doctor_Id",nullable = false)
+    @Column(name = "doctor_id",nullable = false)
     private UUID doctorId;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status;
 
     @Column(name = "doctor_name", nullable = false)
     private String doctorName;
+
+    private Integer queueIndex;
 
     @Column(name = "patient_name", nullable = false)
     private String patientName;
 
     @Column(name = "date", nullable = false)
-    private String date;
+    private LocalDate date;
 
     @Column(name = "time", nullable = false)
     private String time;
@@ -46,18 +52,29 @@ public class Appointments {
     @Column(name = "appointment_booking_time", updatable = false)
     private LocalDateTime appointmentBookingTime;
 
+    public enum AppointmentStatus {
+        BOOKED,
+        COMPLETED,
+        ABSENT
+    }
+
     public Appointments() {
 
     }
 
-    public Appointments(Users users, String doctorName, String date, String time,String specialization, String workspaceName) {
+    public Appointments(Users users, UUID doctorId, String doctorName, String patientName,
+                        LocalDate date, String time, String specialization, String workspaceName) {
         this.users = users;
+        this.doctorId = doctorId;
+        this.status = AppointmentStatus.BOOKED; // Default to BOOKED
         this.doctorName = doctorName;
+        this.patientName = patientName;
         this.date = date;
         this.time = time;
         this.specialization = specialization;
         this.workspaceName = workspaceName;
     }
+
 
     public UUID getId() {
         return id;
@@ -83,6 +100,22 @@ public class Appointments {
         this.doctorId = doctorId;
     }
 
+    public Integer getQueueIndex() {
+        return queueIndex;
+    }
+
+    public void setQueueIndex(Integer queueIndex) {
+        this.queueIndex = queueIndex;
+    }
+
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
+    }
+
     public String getDoctorName() {
         return doctorName;
     }
@@ -91,11 +124,11 @@ public class Appointments {
         this.doctorName = doctorName;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
