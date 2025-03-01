@@ -2,6 +2,10 @@ package com.example.Medico.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "records")
@@ -10,7 +14,7 @@ public class Records {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",nullable = false,updatable = false)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
@@ -23,33 +27,36 @@ public class Records {
     @Column(name = "reviewed_by",nullable = false,updatable = false)
     private String reviewedBy;
 
-    @Column(name = "attention_level",nullable = false,updatable = false)
-    private String attentionLevel;
+    @CreationTimestamp
+    @Column(name = "date", updatable = false)
+    private LocalDate date;
+
+    @Lob
+    @Column(name = "record",nullable = false,updatable = false)
+    private byte[] record;
+
+    @Column(name = "review",nullable = false,updatable = false)
+    private String review;
 
     public Records() {
 
     }
 
-    public Records(String id, Users users, String recordName, String reviewedBy, String attentionLevel) {
+    public Records(UUID id, Users users, String recordName, String reviewedBy, LocalDate date, byte[] record, String review) {
         this.id = id;
         this.users = users;
         this.recordName = recordName;
         this.reviewedBy = reviewedBy;
-        this.attentionLevel = attentionLevel;
+        this.date = date;
+        this.record = record;
+        this.review = review;
     }
 
-    public Records(Users users, String recordName, String reviewedBy, String attentionLevel) {
-        this.users = users;
-        this.recordName = recordName;
-        this.reviewedBy = reviewedBy;
-        this.attentionLevel = attentionLevel;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -77,11 +84,27 @@ public class Records {
         this.reviewedBy = reviewedBy;
     }
 
-    public String getAttentionLevel() {
-        return attentionLevel;
+    public String getReview() {
+        return review;
     }
 
-    public void setAttentionLevel(String attentionLevel) {
-        this.attentionLevel = attentionLevel;
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public byte[] getRecord() {
+        return record;
+    }
+
+    public void setRecord(byte[] record) {
+        this.record = record;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
