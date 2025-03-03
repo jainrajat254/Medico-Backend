@@ -13,6 +13,7 @@ public class UserResponse {
     private String phone;
     private String email;
     private String password;
+    private String role;
 
     public String getToken() {
         return token;
@@ -94,7 +95,15 @@ public class UserResponse {
         this.password = password;
     }
 
-    public UserResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password) {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public UserResponse(String token, UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password, String role) {
         this.token = token;
         this.id = id;
         this.firstName = firstName;
@@ -105,5 +114,6 @@ public class UserResponse {
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 }

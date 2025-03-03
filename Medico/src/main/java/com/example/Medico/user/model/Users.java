@@ -48,7 +48,7 @@ public class Users {
     private String phone;
 
     @Column(name = "role", nullable = false, updatable = false)
-    private final String role = "USER";
+    private String role = "USER";
 
     @Column(name = "email", nullable = false, length = 200, unique = true)
     @NotNull(message = "Email cannot be null")
@@ -68,7 +68,7 @@ public class Users {
         this.userDetails = new UserDetails(this); // Auto-create UserDetails with null values
     }
 
-    public Users(UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password) {
+    public Users(UUID id, String firstName, String lastName, String age, String gender, String bloodGroup, String phone, String email, String password, UserDetails userDetails, String role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,7 +78,8 @@ public class Users {
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.userDetails = new UserDetails(this);
+        this.userDetails = userDetails;
+        this.role = role;
     }
 
     public UUID getId() {
@@ -159,5 +160,9 @@ public class Users {
 
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

@@ -1,16 +1,13 @@
 package com.example.Medico.user.service;
 
-import com.example.Medico.user.dto.EditUserDetails;
-import com.example.Medico.common.dto.EditPassword;
 import com.example.Medico.common.jwt.JWTService;
+import com.example.Medico.user.dto.EditUserDetails;
 import com.example.Medico.user.dto.UserDTO;
 import com.example.Medico.user.model.UserDetails;
+import com.example.Medico.user.model.Users;
 import com.example.Medico.user.repository.UserDetailsRepository;
 import com.example.Medico.user.repository.UserRepository;
-import com.example.Medico.user.model.Users;
-import com.example.Medico.user.responses.UserDetailsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,16 +40,6 @@ public class UserService {
         user.setPhone(userDTO.getPhone());
         user.setEmail(userDTO.getEmail());
         return userRepository.save(user);
-    }
-
-    public void editPassword(EditPassword request, UUID id) {
-        Users user = userRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        if (!bCryptPasswordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Incorrect current password.");
-        }
-        user.setPassword(bCryptPasswordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);
     }
 
     public UserDTO getDetails(UUID id) {
